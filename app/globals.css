@@ -4,18 +4,16 @@
 
 :root {
   color-scheme: dark;
-  --ink: #070713;
-  --night: #0d1024;
-  --panel: rgba(15, 19, 43, 0.78);
+  --night: #e8ebff;
+  --panel: rgba(158, 162, 183, 0.78);
   --panel-strong: rgba(9, 11, 28, 0.92);
-  --line: rgba(255, 255, 255, 0.14);
-  --line-strong: rgba(255, 255, 255, 0.24);
+  --line: rgba(208, 177, 177, 0.14);
+  --line-strong: rgba(32, 32, 32, 0.24);
   --text: #f8fbff;
   --muted: #aeb8d3;
   --cyan: #66e7ff;
   --pink: #ff8bf3;
   --yellow: #ffe76a;
-  --orange: #ff9d66;
   --danger: #ff7b9c;
 }
 
@@ -27,10 +25,9 @@ body {
   color: var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 12% 10%, rgba(255, 139, 243, 0.20), transparent 26rem),
-    radial-gradient(circle at 86% 8%, rgba(102, 231, 255, 0.16), transparent 26rem),
+    radial-gradient(circle at 86% 8%, #eebe98, transparent 26rem),
     radial-gradient(circle at 52% 110%, rgba(255, 231, 106, 0.10), transparent 34rem),
-    linear-gradient(135deg, #080614 0%, #10142e 48%, #070914 100%);
+    linear-gradient(135deg, #080614 0%, #eebe98 48%, #e6ffff 100%);
 }
 body::before {
   content: "";
@@ -58,7 +55,7 @@ input::placeholder { color: rgba(226, 232, 240, 0.55); }
   top: 0;
   z-index: 50;
   border-bottom: 1px solid var(--line);
-  background: rgba(7, 7, 19, 0.82);
+  background: rgba(231, 224, 176, 0.82);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 48px rgba(0,0,0,0.34);
 }
@@ -775,5 +772,294 @@ input::placeholder { color: rgba(226, 232, 240, 0.55); }
   .tab-switcher {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/*
+  World Cup Predictor — Bet365-lite slickness add-on
+  Paste this at the very bottom of app/globals.css after the refined makeover CSS.
+  It keeps the indie/fun vibe, but pushes the interface slightly toward a darker sportsbook board style.
+*/
+
+:root {
+  --bookie-gold-strong: #ffd86a;
+  --bookie-lime: #b8ff7a;
+  --bookie-text: #f8f4df;
+  --bookie-muted: #b9c2b7;
+  --bookie-danger: #ff7a9d;
+}
+
+
+
+/* Header / nav: slightly more sportsbook, less neon club poster */
+.site-header,
+.wc-navbar,
+nav {
+  background:
+    linear-gradient(180deg, rgba(178, 236, 216, 0.96), rgba(7, 16, 13, 0.82)) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.34) !important;
+}
+
+
+
+.nav-link,
+.site-nav a,
+.wc-nav a,
+nav a {
+  border-color: rgba(245, 212, 107, 0.18) !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+  color: #f8f4df !important;
+}
+
+.nav-link:hover,
+.site-nav a:hover,
+.wc-nav a:hover,
+nav a:hover {
+  border-color: rgba(245, 212, 107, 0.46) !important;
+  background: rgba(245, 212, 107, 0.13) !important;
+  color: #fff7cf !important;
+  transform: translateY(-1px);
+}
+
+.nav-link.active,
+.site-nav a.active,
+.wc-nav a.active,
+nav a[aria-current="page"] {
+  background: linear-gradient(135deg, #f5d46b, #ff9f7a) !important;
+  color: #171006 !important;
+  border-color: rgba(255, 232, 151, 0.75) !important;
+  box-shadow: 0 10px 28px rgba(245, 212, 107, 0.22) !important;
+}
+
+/* Overall panels: darker, cleaner, odds-board style */
+.wc-card,
+.home-tabs,
+.home-hero-panel,
+.fixture-card,
+.rule-card,
+.login-card,
+.outright-card,
+.leaderboard-card,
+.prediction-card {
+  background:
+    linear-gradient(180deg, rgba(18, 37, 31, 0.92), rgba(7, 14, 13, 0.92)) !important;
+  border: 1px solid var(--bookie-line) !important;
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.065) !important;
+}
+
+.wc-hero,
+.home-hero {
+  background:
+    linear-gradient(135deg, rgba(17, 43, 35, 0.9), rgba(8, 11, 20, 0.9)),
+    radial-gradient(circle at 76% 10%, rgba(245, 212, 107, 0.14), transparent 30%) !important;
+  border-color: rgba(245, 212, 107, 0.22) !important;
+}
+
+.wc-kicker,
+.home-panel-label,
+.fixture-meta,
+.rule-eyebrow,
+.form-label {
+  color: var(--bookie-gold) !important;
+  letter-spacing: 0.13em !important;
+}
+
+.wc-title span,
+.home-hero h1 span,
+.points-badge,
+.wc-pill {
+  color: var(--bookie-gold-strong) !important;
+}
+
+.wc-copy,
+.home-muted,
+.home-table-note,
+.empty-state p,
+.fixture-card p,
+.rule-card p {
+  color: var(--bookie-muted) !important;
+}
+
+/* Tables and leaderboard rows: more like a clean betting slip / odds board */
+.home-rank-row,
+.leaderboard-row,
+.outcome-row,
+.fixture-row,
+.home-outrights-table tr,
+.rules-list li {
+  background: rgba(17, 43, 35, 0.9) !important;
+  border-color: rgba(245, 212, 107, 0.13) !important;
+}
+
+.home-rank-row:hover,
+.leaderboard-row:hover,
+.fixture-card:hover,
+.prediction-card:hover {
+  border-color: rgba(245, 212, 107, 0.38) !important;
+  background: rgba(245, 212, 107, 0.07) !important;
+}
+
+.rank-badge,
+.points-badge,
+.score-badge,
+.status-pill,
+.wc-pill {
+  border-color: rgba(245, 212, 107, 0.32) !important;
+  background: rgba(245, 212, 107, 0.11) !important;
+  color: #fff1ad !important;
+}
+
+.home-outrights-table th,
+table th {
+  background: rgba(245, 212, 107, 0.11) !important;
+  color: #ffe9a0 !important;
+  border-bottom: 1px solid rgba(245, 212, 107, 0.22) !important;
+}
+
+.home-outrights-table td,
+table td {
+  border-bottom-color: rgba(245, 212, 107, 0.09) !important;
+}
+
+/* Forms: darker inputs, sharper sportsbook control feel */
+input,
+select,
+textarea,
+.form-input,
+.form-select,
+.score-input {
+  background: rgba(1, 8, 6, 0.78) !important;
+  border: 1px solid rgba(245, 212, 107, 0.22) !important;
+  color: #fff9df !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 8px 20px rgba(0, 0, 0, 0.18) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(248, 244, 223, 0.48) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-input:focus,
+.form-select:focus,
+.score-input:focus {
+  border-color: rgba(245, 212, 107, 0.7) !important;
+  box-shadow:
+    0 0 0 3px rgba(245, 212, 107, 0.14),
+    0 12px 26px rgba(0, 0, 0, 0.22) !important;
+  outline: none !important;
+}
+
+/* Buttons: odds-site sharpness, still playful enough */
+button,
+.wc-button,
+.save-button,
+.form-button,
+.tab-switcher button,
+.home-actions a {
+  border: 1px solid rgba(255, 232, 151, 0.42) !important;
+  background: linear-gradient(135deg, #f6d66e 0%, #ffb36f 100%) !important;
+  color: #130f05 !important;
+  font-weight: 900 !important;
+  box-shadow:
+    0 12px 26px rgba(245, 212, 107, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38) !important;
+}
+
+button:hover,
+.wc-button:hover,
+.save-button:hover,
+.form-button:hover,
+.tab-switcher button:hover,
+.home-actions a:hover {
+  filter: brightness(1.04) saturate(1.06);
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 34px rgba(245, 212, 107, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42) !important;
+}
+
+.wc-button.secondary,
+button.secondary,
+.tab-switcher button:not(.active) {
+  background: rgba(255, 255, 255, 0.055) !important;
+  color: #fff5ca !important;
+  border-color: rgba(245, 212, 107, 0.2) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+}
+
+.tab-switcher button.active {
+  background: linear-gradient(135deg, #f6d66e, #b8ff7a) !important;
+  color: #09100a !important;
+}
+
+/* Fixture cards: make them feel like stacked bet slips */
+.fixture-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.fixture-card::before,
+.prediction-card::before,
+.home-rank-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--bookie-gold), rgba(184, 255, 122, 0.7));
+  opacity: 0.85;
+}
+
+.fixture-card,
+.prediction-card,
+.home-rank-row {
+  position: relative;
+}
+
+/* Section spacing: slicker and less floaty */
+.wc-page {
+  gap: clamp(18px, 3vw, 30px) !important;
+}
+
+.wc-card-pad,
+.home-tabs,
+.home-predictions {
+  padding: clamp(20px, 3vw, 32px) !important;
+}
+
+.home-section-head,
+.home-tabs-head,
+.fixture-card-head,
+.card-head {
+  border-bottom: 1px solid rgba(245, 212, 107, 0.12);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+/* Small responsive polish */
+@media (max-width: 720px) {
+  .site-nav,
+  .wc-nav,
+  nav {
+    gap: 8px !important;
+  }
+
+  .nav-link,
+  .site-nav a,
+  .wc-nav a,
+  nav a {
+    padding: 9px 11px !important;
+  }
+
+  .wc-card-pad,
+  .home-tabs,
+  .home-predictions {
+    padding: 18px !important;
   }
 }
