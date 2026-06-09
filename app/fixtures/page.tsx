@@ -26,12 +26,17 @@ export default function FixturesPage() {
 
       const { data: userData } = await supabase.auth.getUser();
 
+      alert(`Logged in as: ${userData.user?.id}`);
+
       if (!userData.user) return;
 
       const { data: predictionsData, error: predictionsError } = await supabase
         .from("predictions")
         .select("match_id, predicted_home_score, predicted_away_score")
         .eq("user_id", userData.user.id);
+
+      alert(`Loaded predictions: ${predictionsData?.length ?? 0}`);
+
 
       if (predictionsError) {
         console.log(predictionsError.message);
