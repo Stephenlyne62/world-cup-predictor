@@ -1,10 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function FixturesClient({ matches }: { matches: any[] }) {
-  const [scores, setScores] = useState<Record<number, { home: string; away: string }>>({});
+  const [scores, setScores] = useState<
+    Record<number, { home: string; away: string }>
+  >({});
+
+  useEffect(() => {
+    async function loadSavedPredictions() {
+      const { data: userData } = await supabase.auth.getUser();
+
+      if (!userData.user) return;
+
+      const { data: predictions, error } = await supabase
+        .from("predictions")
+        .select("match_id, predicted_home_score, predicted_away_score")
+        .eq("user_id", userData.user.id);
+
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      const savedScores: Record<number, { home: string; away: string }> = {};
+
+      for (const prediction of predictions ?? []) {
+        savedScores[prediction.match_id] = {
+          home: String(prediction.predicted_home_score),
+          away: String(prediction.predicted_away_score),
+        };
+      }
+
+      setScores(savedScores);
+    }
+
+    loadSavedPredictions();
+  }, []);
 
   async function savePrediction(matchId: number) {
     const { data: userData } = await supabase.auth.getUser();
@@ -43,9 +76,12 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
       <section>
         <div className="wc-hero">
           <p className="wc-kicker">score slips</p>
-          <h1 className="wc-title">Fixtures<span>.</span></h1>
+          <h1 className="wc-title">
+            Fixtures<span>.</span>
+          </h1>
           <p className="wc-copy">
-            Tap in your predictions before kickoff. Clean cards, quick score boxes, zero spreadsheet energy.
+            Tap in your predictions before kickoff. Clean cards, quick score
+            boxes, zero spreadsheet energy.
           </p>
         </div>
 
@@ -54,16 +90,25 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
             const locked = new Date() >= new Date(match.kickoff_time);
 
             return (
-              <article key={match.id} className="wc-card wc-card-pad fixture-card">
+              <article
+                key={match.id}
+                className="wc-card wc-card-pad fixture-card"
+              >
                 <div className="fixture-topline">
                   <div>
                     <h2 className="fixture-title">
                       {match.home_team} <span>vs</span> {match.away_team}
                     </h2>
-                    <p className="fixture-date">{new Date(match.kickoff_time).toLocaleString()}</p>
+                    <p className="fixture-date">
+                      {new Date(match.kickoff_time).toLocaleString()}
+                    </p>
                   </div>
 
-                  <span className={`wc-pill ${locked ? "wc-pill-locked" : "wc-pill-open"}`}>
+                  <span
+                    className={`wc-pill ${
+                      locked ? "wc-pill-locked" : "wc-pill-open"
+                    }`}
+                  >
                     {locked ? "Locked" : "Open"}
                   </span>
                 </div>
@@ -74,6 +119,7 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
                     disabled={locked}
                     placeholder="Home"
                     className="wc-field"
+                    value={scores[match.id]?.home ?? ""}
                     onChange={(e) =>
                       setScores({
                         ...scores,
@@ -90,6 +136,7 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
                     disabled={locked}
                     placeholder="Away"
                     className="wc-field"
+                    value={scores[match.id]?.away ?? ""}
                     onChange={(e) =>
                       setScores({
                         ...scores,
