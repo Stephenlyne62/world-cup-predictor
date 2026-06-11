@@ -40,7 +40,7 @@ export default function LoginPage() {
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://world-cup-predictor-mirjujaer-stephen-s-projects268888.vercel.app/reset-password",
+      redirectTo: "https://world-cup-predictor-red-omega.vercel.app/reset-password",
     });
 
     if (error) {
