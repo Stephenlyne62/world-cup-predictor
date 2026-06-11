@@ -1062,3 +1062,36 @@ button.secondary,
     padding: 18px !important;
   }
 }
+.prediction-exact {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 28px rgba(34, 197, 94, 0.35);
+}
+
+.prediction-result {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 28px rgba(249, 115, 22, 0.35);
+}
+
+.prediction-wrong {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 28px rgba(239, 68, 68, 0.35);
+}
+
+.prediction-status {
+  margin-top: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.prediction-status-exact {
+  color: #22c55e;
+}
+
+.prediction-status-result {
+  color: #f97316;
+}
+
+.prediction-status-wrong {
+  color: #ef4444;
+}

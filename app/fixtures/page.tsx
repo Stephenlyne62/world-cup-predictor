@@ -3,6 +3,41 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
+function getResult(home: number, away: number) {
+  if (home > away) return "home";
+  if (away > home) return "away";
+  return "draw";
+}
+
+function getPredictionStatus(
+  match: any,
+  prediction?: { home: string; away: string }
+) {
+  if (
+    match.home_score === null ||
+    match.away_score === null ||
+    !prediction?.home ||
+    !prediction?.away
+  ) {
+    return "pending";
+  }
+
+  const predictedHome = Number(prediction.home);
+  const predictedAway = Number(prediction.away);
+
+  if (
+    predictedHome === match.home_score &&
+    predictedAway === match.away_score
+  ) {
+    return "exact";
+  }
+
+  const predictedResult = getResult(predictedHome, predictedAway);
+  const actualResult = getResult(match.home_score, match.away_score);
+
+  return predictedResult === actualResult ? "result" : "wrong";
+}
+
 export default function FixturesPage() {
   const [matches, setMatches] = useState<any[]>([]);
   const [scores, setScores] = useState<
@@ -26,15 +61,12 @@ export default function FixturesPage() {
 
       const { data: userData } = await supabase.auth.getUser();
 
-
       if (!userData.user) return;
 
       const { data: predictionsData, error: predictionsError } = await supabase
         .from("predictions")
         .select("match_id, predicted_home_score, predicted_away_score")
         .eq("user_id", userData.user.id);
-
-
 
       if (predictionsError) {
         console.log(predictionsError.message);
@@ -110,11 +142,20 @@ export default function FixturesPage() {
         <div className="wc-grid wc-grid-two">
           {matches.map((match) => {
             const locked = new Date() >= new Date(match.kickoff_time);
+            const status = getPredictionStatus(match, scores[match.id]);
 
             return (
               <article
                 key={match.id}
-                className="wc-card wc-card-pad fixture-card"
+                className={`wc-card wc-card-pad fixture-card ${
+                  status === "exact"
+                    ? "prediction-exact"
+                    : status === "result"
+                    ? "prediction-result"
+                    : status === "wrong"
+                    ? "prediction-wrong"
+                    : ""
+                }`}
               >
                 <div className="fixture-topline">
                   <div>
@@ -125,6 +166,12 @@ export default function FixturesPage() {
                     <p className="fixture-date">
                       {new Date(match.kickoff_time).toLocaleString()}
                     </p>
+
+                    {match.home_score !== null && match.away_score !== null && (
+                      <p className="fixture-date">
+                        Final score: {match.home_score} - {match.away_score}
+                      </p>
+                    )}
                   </div>
 
                   <span
@@ -179,6 +226,24 @@ export default function FixturesPage() {
                     {locked ? "Locked" : "Save"}
                   </button>
                 </div>
+
+                {status === "exact" && (
+                  <p className="prediction-status prediction-status-exact">
+                    Exact score +3
+                  </p>
+                )}
+
+                {status === "result" && (
+                  <p className="prediction-status prediction-status-result">
+                    Correct result +1
+                  </p>
+                )}
+
+                {status === "wrong" && (
+                  <p className="prediction-status prediction-status-wrong">
+                    Incorrect prediction
+                  </p>
+                )}
               </article>
             );
           })}

@@ -24,7 +24,7 @@ export default function LoginPage() {
     });
 
     if (error) alert(error.message);
-    else alert("Signed in.");
+    else window.location.href = "/";
   }
 
   async function signOut() {
