@@ -13,8 +13,11 @@ export default function LoginPage() {
       password,
     });
 
-    if (error) alert(error.message);
-    else alert("Account created. You can now sign in.");
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Account created. You can now sign in.");
+    }
   }
 
   async function signIn() {
@@ -23,8 +26,28 @@ export default function LoginPage() {
       password,
     });
 
-    if (error) alert(error.message);
-    else window.location.href = "/";
+    if (error) {
+      alert(error.message);
+    } else {
+      window.location.href = "/";
+    }
+  }
+
+  async function resetPassword() {
+    if (!email) {
+      alert("Enter your email first.");
+      return;
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "https://world-cup-predictor-mirjujaer-stephen-s-projects268888.vercel.app/reset-password",
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Password reset email sent.");
+    }
   }
 
   async function signOut() {
@@ -37,14 +60,20 @@ export default function LoginPage() {
       <section className="auth-layout">
         <div className="wc-hero auth-hero">
           <p className="wc-kicker">clubhouse entry</p>
-          <h1 className="wc-title">Login<span>.</span></h1>
+          <h1 className="wc-title">
+            Login<span>.</span>
+          </h1>
+
           <p className="wc-copy">
-            Sign in, name your chaos ball, and keep your tournament takes safely tucked away.
+            Sign in, name your chaos ball, and keep your tournament takes
+            safely tucked away.
           </p>
         </div>
 
         <div className="wc-card wc-card-pad auth-card">
-          <div className="auth-note">Your picks, your table, your tiny bit of football glory.</div>
+          <div className="auth-note">
+            Your picks, your table, your tiny bit of football glory.
+          </div>
 
           <div className="wc-form">
             <input
@@ -64,10 +93,26 @@ export default function LoginPage() {
             />
 
             <div className="auth-actions">
-              <button onClick={signUp} className="wc-button secondary">Sign Up</button>
-              <button onClick={signIn} className="wc-button">Sign In</button>
-              <button onClick={signOut} className="wc-button danger">Sign Out</button>
+              <button onClick={signUp} className="wc-button secondary">
+                Sign Up
+              </button>
+
+              <button onClick={signIn} className="wc-button">
+                Sign In
+              </button>
+
+              <button onClick={signOut} className="wc-button danger">
+                Sign Out
+              </button>
             </div>
+
+            <button
+              onClick={resetPassword}
+              className="wc-button secondary"
+              type="button"
+            >
+              Forgot Password?
+            </button>
           </div>
         </div>
       </section>
