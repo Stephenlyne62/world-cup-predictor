@@ -112,7 +112,6 @@ export default function Home() {
         new Date(b.matches.kickoff_time).getTime() -
         new Date(a.matches.kickoff_time).getTime()
     )
-    .slice(0, 10);
 
   const topTeam = leaderboard[0];
   const seventyTwoHoursAgo = Date.now() - 72 * 60 * 60 * 1000;

@@ -50,7 +50,7 @@ export default function FixturesPage() {
         .from("matches")
         .select("*")
         .order("kickoff_time", { ascending: true })
-        .limit(104);
+        .range(0, 103);
 
       if (matchesError) {
         alert(matchesError.message);
