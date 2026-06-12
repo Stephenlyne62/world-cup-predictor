@@ -111,7 +111,22 @@ export default function Home() {
       (a, b) =>
         new Date(b.matches.kickoff_time).getTime() -
         new Date(a.matches.kickoff_time).getTime()
-    )
+    );
+
+  const predictionsByMatch = visiblePredictions.reduce((groups, prediction) => {
+    const key = `${prediction.matches.home_team} vs ${prediction.matches.away_team}`;
+
+    if (!groups[key]) {
+      groups[key] = {
+        kickoff_time: prediction.matches.kickoff_time,
+        predictions: [],
+      };
+    }
+
+    groups[key].predictions.push(prediction);
+
+    return groups;
+  }, {} as Record<string, { kickoff_time: string; predictions: Prediction[] }>);
 
   const topTeam = leaderboard[0];
   const seventyTwoHoursAgo = Date.now() - 72 * 60 * 60 * 1000;
@@ -310,29 +325,38 @@ export default function Home() {
           Predictions only appear once a match has kicked off, so no one can peek at the homework early.
         </p>
 
-        <div className="prediction-grid">
-          {visiblePredictions.length === 0 ? (
+        <div className="prediction-match-list">
+          {Object.keys(predictionsByMatch).length === 0 ? (
             <div className="empty-state wide">
               <span>🔮</span>
               <p>No predictions are visible yet.</p>
             </div>
           ) : (
-            visiblePredictions.map((prediction) => (
-              <article key={prediction.id} className="prediction-card">
-                <div className="prediction-card-top">
-                  <strong>{teamName(prediction.user_id)}</strong>
-                  <span>{prediction.points ?? 0} pts</span>
+            Object.entries(predictionsByMatch).map(([matchName, group]) => (
+              <article key={matchName} className="prediction-match-card">
+                <div className="prediction-match-head">
+                  <h3>{matchName}</h3>
+                  <small>{new Date(group.kickoff_time).toLocaleString()}</small>
                 </div>
-                <p>
-                  {prediction.matches.home_team}{" "}
-                  <b>{prediction.predicted_home_score}</b>
-                  <em>-</em>
-                  <b>{prediction.predicted_away_score}</b>{" "}
-                  {prediction.matches.away_team}
-                </p>
-                <small>
-                  {new Date(prediction.matches.kickoff_time).toLocaleString()}
-                </small>
+
+                <div className="prediction-score-list">
+                  {group.predictions.map((prediction) => (
+                    <div key={prediction.id} className="prediction-score-row">
+                      <span className="prediction-team-name">
+                        {teamName(prediction.user_id)}
+                      </span>
+
+                      <span className="prediction-scoreline">
+                        {prediction.predicted_home_score} -{" "}
+                        {prediction.predicted_away_score}
+                      </span>
+
+                      <span className="prediction-points">
+                        {prediction.points ?? 0} pts
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </article>
             ))
           )}
