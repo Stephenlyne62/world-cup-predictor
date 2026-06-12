@@ -1095,63 +1095,91 @@ button.secondary,
 .prediction-status-wrong {
   color: #ef4444;
 }
-.prediction-match-list {
+.prediction-accordion-list {
   display: grid;
   gap: 1rem;
 }
 
-.prediction-match-card {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  background: rgba(15, 23, 42, 0.85);
-  border-radius: 1.25rem;
+.prediction-fixture-card {
+  border: 1px solid rgba(255, 240, 160, 0.18);
+  background: linear-gradient(135deg, rgba(12, 35, 26, 0.96), rgba(12, 18, 28, 0.96));
+  border-radius: 1.8rem;
   padding: 1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
 }
 
-.prediction-match-card h3 {
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 900;
-  margin-bottom: 0.75rem;
-}
-
-.prediction-score-list {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.prediction-score-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 0.75rem;
+.prediction-fixture-summary {
+  cursor: pointer;
+  display: flex;
   align-items: center;
-  padding: 0.75rem;
-  border-radius: 0.9rem;
-  background: rgba(30, 41, 59, 0.9);
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
 }
 
-.prediction-team-name {
-  color: #ffffff;
+.prediction-fixture-summary::-webkit-details-marker {
+  display: none;
+}
+
+.prediction-fixture-summary h3 {
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.prediction-fixture-summary p {
+  margin-top: 0.35rem;
+  color: rgba(255, 255, 255, 0.65);
   font-weight: 800;
 }
 
-.prediction-scoreline {
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 1.05rem;
+.prediction-fixture-body {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
 }
 
-.prediction-points {
-  color: #cbd5e1;
-  font-size: 0.85rem;
-  font-weight: 700;
+.prediction-player-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1.2rem;
+  background: rgba(2, 8, 7, 0.75);
+  border: 1px solid rgba(255, 221, 110, 0.16);
+  padding: 1rem;
+}
+
+.prediction-player-card strong {
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.prediction-player-card p {
+  margin-top: 0.35rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+}
+
+.prediction-player-card span {
+  color: white;
+  font-weight: 950;
+}
+
+.prediction-points-pill {
+  white-space: nowrap;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffe66d, #ffb86b);
+  color: #111827 !important;
+  padding: 0.55rem 0.8rem;
+  font-weight: 950;
 }
 
 @media (max-width: 640px) {
-  .prediction-score-row {
-    grid-template-columns: 1fr;
-  }
-
-  .prediction-match-head {
-    display: block;
+  .prediction-fixture-summary,
+  .prediction-player-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

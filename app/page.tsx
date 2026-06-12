@@ -313,54 +313,63 @@ export default function Home() {
       </section>
 
       <section className="wc-card wc-card-pad home-predictions">
-        <div className="home-section-head">
-          <div>
-            <p className="wc-kicker">Score slips</p>
-            <h2>Latest predictions</h2>
+      <div className="home-section-head">
+        <div>
+          <p className="wc-kicker">Score slips</p>
+          <h2>Latest predictions</h2>
+        </div>
+        <span className="wc-pill wc-pill-locked">After kickoff only</span>
+      </div>
+
+      <p className="home-muted">
+        Predictions only appear once a match has kicked off, so no one can peek at
+        the homework early.
+      </p>
+
+      <div className="prediction-accordion-list">
+        {Object.keys(predictionsByMatch).length === 0 ? (
+          <div className="empty-state wide">
+            <span>🔮</span>
+            <p>No predictions are visible yet.</p>
           </div>
-          <span className="wc-pill wc-pill-locked">After kickoff only</span>
-        </div>
-
-        <p className="home-muted">
-          Predictions only appear once a match has kicked off, so no one can peek at the homework early.
-        </p>
-
-        <div className="prediction-match-list">
-          {Object.keys(predictionsByMatch).length === 0 ? (
-            <div className="empty-state wide">
-              <span>🔮</span>
-              <p>No predictions are visible yet.</p>
-            </div>
-          ) : (
-            Object.entries(predictionsByMatch).map(([matchName, group]) => (
-              <article key={matchName} className="prediction-match-card">
-                <div className="prediction-match-head">
+        ) : (
+          Object.entries(predictionsByMatch).map(([matchName, group]) => (
+            <details key={matchName} className="prediction-fixture-card">
+              <summary className="prediction-fixture-summary">
+                <div>
                   <h3>{matchName}</h3>
-                  <small>{new Date(group.kickoff_time).toLocaleString()}</small>
+                  <p>{new Date(group.kickoff_time).toLocaleString()}</p>
                 </div>
 
-                <div className="prediction-score-list">
-                  {group.predictions.map((prediction) => (
-                    <div key={prediction.id} className="prediction-score-row">
-                      <span className="prediction-team-name">
-                        {teamName(prediction.user_id)}
-                      </span>
+                <span className="wc-pill">
+                  {group.predictions.length} picks
+                </span>
+              </summary>
 
-                      <span className="prediction-scoreline">
-                        {prediction.predicted_home_score} -{" "}
-                        {prediction.predicted_away_score}
-                      </span>
-
-                      <span className="prediction-points">
-                        {prediction.points ?? 0} pts
-                      </span>
+              <div className="prediction-fixture-body">
+                {group.predictions.map((prediction) => (
+                  <div key={prediction.id} className="prediction-player-card">
+                    <div>
+                      <strong>{teamName(prediction.user_id)}</strong>
+                      <p>
+                        {prediction.matches.home_team}{" "}
+                        <span>{prediction.predicted_home_score}</span>
+                        {" - "}
+                        <span>{prediction.predicted_away_score}</span>{" "}
+                        {prediction.matches.away_team}
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </article>
-            ))
-          )}
-        </div>
+
+                    <span className="prediction-points-pill">
+                      {prediction.points ?? 0} pts
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </details>
+          ))
+        )}
+      </div>
       </section>
     </main>
   );
