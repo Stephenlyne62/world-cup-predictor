@@ -15,7 +15,8 @@ function getResult(home: number, away: number) {
 export async function GET() {
   const { data: predictions, error: predictionsError } = await supabase
     .from("predictions")
-    .select("*");
+    .select("*")
+    .range(0, 5000);
 
   if (predictionsError) {
     return NextResponse.json({ error: predictionsError.message }, { status: 500 });
@@ -25,7 +26,8 @@ export async function GET() {
     .from("matches")
     .select("*")
     .not("home_score", "is", null)
-    .not("away_score", "is", null);
+    .not("away_score", "is", null)
+    .range(0, 5000);
 
   if (matchesError) {
     return NextResponse.json({ error: matchesError.message }, { status: 500 });

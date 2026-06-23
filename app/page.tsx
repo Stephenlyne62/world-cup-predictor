@@ -61,7 +61,8 @@ export default function Home() {
             away_team,
             kickoff_time
           )
-        `);
+        `)
+        .range(0, 5000);
 
       const { data: outrightsData } = await supabase
         .from("outright_predictions")
