@@ -47,13 +47,13 @@ export async function GET() {
 
   for (const match of data.matches ?? []) {
     const homeScore =
-      match.score?.fullTime?.home ??
       match.score?.regularTime?.home ??
+      match.score?.fullTime?.home ??
       null;
 
     const awayScore =
-      match.score?.fullTime?.away ??
       match.score?.regularTime?.away ??
+      match.score?.fullTime?.away ??
       null;
 
     if (homeScore !== null && awayScore !== null) {
