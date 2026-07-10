@@ -32,6 +32,7 @@ type Outright = {
   own_goal_player: string;
   underdog_team: string;
   biggest_win_team: string;
+  points: number;
 };
 
 export default function Home() {
@@ -73,7 +74,8 @@ export default function Home() {
           red_card_player,
           own_goal_player,
           underdog_team,
-          biggest_win_team
+          biggest_win_team,
+          points
         `);
 
       setProfiles(profilesData ?? []);
@@ -94,6 +96,11 @@ export default function Home() {
     totals[prediction.user_id] =
       (totals[prediction.user_id] ?? 0) + (prediction.points ?? 0);
   }
+
+  for (const outright of outrights) {
+  totals[outright.user_id] =
+    (totals[outright.user_id] ?? 0) + (outright.points ?? 0);
+}
 
   const leaderboard = Object.entries(totals)
     .map(([userId, points]) => ({
