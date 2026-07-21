@@ -21,27 +21,23 @@ Built with **Next.js**, **TypeScript**, **Supabase**, and deployed on **Vercel**
 
 ---
 
-# Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-
 - Next.js 15
 - React
 - TypeScript
 - CSS
 
-### Backend
-
+### Backend & Database
 - Supabase
 - PostgreSQL
 - Row Level Security (RLS)
 
-### APIs
-
+### API
 - Football-Data.org API
 
 ### Deployment
-
 - Vercel
 
 ---
