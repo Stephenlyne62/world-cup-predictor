@@ -1,36 +1,284 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 World Cup Predictor
 
-## Getting Started
+A full-stack web application that allows users to predict every FIFA World Cup match, compete on a live leaderboard, and submit tournament-wide outright predictions.
 
-First, run the development server:
+Built with **Next.js**, **TypeScript**, **Supabase**, and deployed on **Vercel**.
+
+---
+
+## Features
+
+- User authentication (Sign up / Login / Password Reset)
+- Predict every World Cup fixture
+- Edit predictions until kick-off
+- Automatic prediction scoring
+- Live leaderboard
+- Tournament outright predictions
+- Responsive design
+- Real-time data from the Football Data API
+- Automatic score updates
+- Admin tools for tournament management
+
+---
+
+# Tech Stack
+
+### Frontend
+
+- Next.js 15
+- React
+- TypeScript
+- CSS
+
+### Backend
+
+- Supabase
+- PostgreSQL
+- Row Level Security (RLS)
+
+### APIs
+
+- Football-Data.org API
+
+### Deployment
+
+- Vercel
+
+---
+
+# Features
+
+## Home
+
+Main landing page displaying:
+
+- Live leaderboard
+- Latest predictions (after kick-off)
+- Tournament outright picks
+- Recent form statistics
+
+### Screenshot
+
+> Add screenshot here
+
+```md
+![Home](images/home.png)
+```
+
+---
+
+## Fixtures
+
+Users can:
+
+- Browse every World Cup fixture
+- Enter score predictions
+- Edit predictions before kick-off
+- View saved predictions
+
+### Screenshot
+
+```md
+![Fixtures](images/fixtures.png)
+```
+
+---
+
+## Outright Predictions
+
+Before the tournament begins, users submit predictions for:
+
+- Tournament Winner
+- Golden Boot
+- First Red Card
+- First Own Goal
+- Biggest Winning Team
+- Best Performing 100/1+ Nation
+
+These remain hidden until the tournament starts.
+
+### Screenshot
+
+```md
+![Outrights](images/outrights.png)
+```
+
+---
+
+## Leaderboard
+
+Prediction points are calculated automatically after each completed fixture.
+
+The leaderboard updates in real-time and also includes outright prediction points.
+
+### Screenshot
+
+```md
+![Leaderboard](images/leaderboard.png)
+```
+
+---
+
+## Authentication
+
+Authentication is powered by Supabase Auth.
+
+Features include:
+
+- Registration
+- Login
+- Password reset
+- Protected routes
+
+### Screenshot
+
+```md
+![Login](images/login.png)
+```
+
+---
+
+## Automatic Score Updates
+
+The application automatically retrieves match results using the Football Data API.
+
+Once scores are imported:
+
+- Predictions are scored
+- Leaderboard updates
+- Player rankings change automatically
+
+---
+
+# Project Structure
+
+```
+app/
+├── api/
+├── fixtures/
+├── login/
+├── outrights/
+├── profile/
+├── reset-password/
+├── signup/
+
+components/
+
+lib/
+
+public/
+
+styles/
+```
+
+---
+
+# Database
+
+Main tables
+
+- profiles
+- matches
+- predictions
+- outright_predictions
+
+---
+
+# Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/world-cup-predictor.git
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file.
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+FOOTBALL_DATA_API_KEY=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# Future Improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Admin dashboard
+- Automatic outright scoring
+- Prediction statistics
+- User profiles
+- League support
+- Multiple tournaments
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# Screenshots
+
+## Home
+
+The landing page provides an overview of the competition, including the current leaderboard, recent form, latest predictions, and quick access to fixtures and outright predictions.
+
+<img width="1917" height="922" alt="Home Page" src="https://github.com/user-attachments/assets/ac12ed97-9864-4fa2-ab03-6ddc6314f961" />
+
+<img width="1911" height="1015" alt="Latest Predictions" src="https://github.com/user-attachments/assets/37f25dbb-1b80-49ca-857e-f7ca992da863" />
+
+---
+
+## Fixtures
+
+Users can browse every World Cup fixture, submit score predictions, and edit them until kick-off.
+
+<img width="1910" height="1030" alt="Fixtures Page" src="https://github.com/user-attachments/assets/b74eb384-36fc-440a-a7cd-284118be8b07" />
+
+---
+
+## Outright Predictions
+
+Players submit tournament-wide predictions before the competition begins, including the tournament winner, Golden Boot, first red card, first own goal, biggest winning team, and best-performing underdog.
+
+<img width="1891" height="920" alt="Outright Predictions" src="https://github.com/user-attachments/assets/5486e6e3-0e93-4cb5-83a7-56b4d4879ba7" />
+
+---
+
+## Leaderboard
+
+The live leaderboard automatically updates as matches are scored and includes both fixture prediction points and outright prediction points.
+
+<img width="1912" height="1026" alt="Leaderboard" src="https://github.com/user-attachments/assets/e28a001d-93b4-4112-8cd6-7a1091ba1adb" />
+
+---
+
+## Authentication
+
+Users can securely create an account, sign in, and reset their password using Supabase Authentication.
+
+<img width="1880" height="835" alt="Login Page" src="https://github.com/user-attachments/assets/7ebc7caf-5bf4-4c07-b0e7-79a1b7f00b1b" />
+
+---
+
+# Author
+
+**Stephen Lyne**
+
+MSc Web Development
+
+University of Roehampton
