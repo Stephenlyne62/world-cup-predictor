@@ -55,7 +55,6 @@ Main landing page displaying:
 
 ### Screenshot
 
-> Add screenshot here
 
 ```md
 ![Home](images/home.png)
