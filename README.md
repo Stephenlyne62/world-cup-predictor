@@ -84,13 +84,6 @@ Prediction points are calculated automatically after each completed fixture.
 
 The leaderboard updates in real-time and also includes outright prediction points.
 
-### Screenshot
-
-```md
-![Leaderboard](images/leaderboard.png)
-```
-
----
 
 ## Authentication
 
