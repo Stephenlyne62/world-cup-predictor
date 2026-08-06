@@ -53,14 +53,6 @@ Main landing page displaying:
 - Tournament outright picks
 - Recent form statistics
 
-### Screenshot
-
-
-```md
-![Home](images/home.png)
-```
-
----
 
 ## Fixtures
 
@@ -71,13 +63,6 @@ Users can:
 - Edit predictions before kick-off
 - View saved predictions
 
-### Screenshot
-
-```md
-![Fixtures](images/fixtures.png)
-```
-
----
 
 ## Outright Predictions
 
@@ -92,13 +77,6 @@ Before the tournament begins, users submit predictions for:
 
 These remain hidden until the tournament starts.
 
-### Screenshot
-
-```md
-![Outrights](images/outrights.png)
-```
-
----
 
 ## Leaderboard
 
@@ -125,13 +103,6 @@ Features include:
 - Password reset
 - Protected routes
 
-### Screenshot
-
-```md
-![Login](images/login.png)
-```
-
----
 
 ## Automatic Score Updates
 
