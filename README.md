@@ -1,242 +1,263 @@
-# 🌍 World Cup Predictor
+# World Cup Predictor
 
-A full-stack web application that allows users to predict every FIFA World Cup match, compete on a live leaderboard, and submit tournament-wide outright predictions.
+A full-stack prediction platform for the 2026 FIFA World Cup. Users can predict match scores, submit tournament-wide picks, and compete against friends on a live leaderboard.
 
-Built with **Next.js**, **TypeScript**, **Supabase**, and deployed on **Vercel**.
+Built with **Next.js**, **TypeScript**, **Supabase/PostgreSQL**, and deployed on **Vercel**.
 
 ---
 
-## Features
+## Key Features
 
-- User authentication (Sign up / Login / Password Reset)
+- Email/password authentication with Supabase Auth
 - Predict every World Cup fixture
-- Edit predictions until kick-off
-- Automatic prediction scoring
+- Edit predictions until kickoff
+- Automatic kickoff locking
+- Automatic scoring for completed fixtures
 - Live leaderboard
-- Tournament outright predictions
-- Responsive design
-- Real-time data from the Football Data API
-- Automatic score updates
-- Admin tools for tournament management
+- Tournament-wide outright predictions
+- Football-Data.org fixture and result integration
+- Admin tools for fixture imports, score updates, and prediction scoring
+- Responsive interface
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
+
 - Next.js 15
 - React
 - TypeScript
 - CSS
 
 ### Backend & Database
+
+- Next.js API routes
 - Supabase
 - PostgreSQL
+- Supabase Auth
 - Row Level Security (RLS)
 
-### API
+### External API
+
 - Football-Data.org API
 
 ### Deployment
+
 - Vercel
 
 ---
 
-# Features
+## Application Overview
 
-## Home
+### Home
 
-Main landing page displaying:
+The home page provides an overview of the competition, including the current leader, recent form, tournament standings, outright picks, and the latest available predictions.
 
-- Live leaderboard
-- Latest predictions (after kick-off)
-- Tournament outright picks
-- Recent form statistics
+<img width="1912" height="787" alt="image" src="https://github.com/user-attachments/assets/db3b9a67-c6a5-474b-b7a0-d152322a27e3" />
 
 
-## Fixtures
-
-Users can:
-
-- Browse every World Cup fixture
-- Enter score predictions
-- Edit predictions before kick-off
-- View saved predictions
-
-
-## Outright Predictions
-
-Before the tournament begins, users submit predictions for:
-
-- Tournament Winner
-- Golden Boot
-- First Red Card
-- First Own Goal
-- Biggest Winning Team
-- Best Performing 100/1+ Nation
-
-These remain hidden until the tournament starts.
-
-
-## Leaderboard
-
-Prediction points are calculated automatically after each completed fixture.
-
-The leaderboard updates in real-time and also includes outright prediction points.
-
-
-## Authentication
-
-Authentication is powered by Supabase Auth.
-
-Features include:
-
-- Registration
-- Login
-- Password reset
-- Protected routes
-
-
-## Automatic Score Updates
-
-The application automatically retrieves match results using the Football Data API.
-
-Once scores are imported:
-
-- Predictions are scored
-- Leaderboard updates
-- Player rankings change automatically
+<img
+  src="YOUR-HOME-SCREENSHOT-URL"
+  alt="World Cup Predictor home page"
+  width="1100"
+/>
 
 ---
 
-# Project Structure
+### Fixtures
 
-```
+Users can browse World Cup fixtures, enter score predictions, and update their selections before kickoff.
+
+Predictions are locked automatically when each match begins, preventing changes after the deadline.
+
+<img width="1897" height="868" alt="image" src="https://github.com/user-attachments/assets/4ae5219a-6896-41a3-93b0-9e65324d41e6" />
+
+
+<img
+  src="YOUR-FIXTURES-SCREENSHOT-URL"
+  alt="World Cup Predictor fixtures page"
+  width="1100"
+/>
+
+---
+
+### Outright Predictions
+
+Before the tournament begins, users can submit tournament-wide predictions for:
+
+- Tournament winner
+- Golden Boot winner
+- Player to receive a red card
+- Player to score an own goal
+- Best-performing 100/1+ nation
+- Team to record the biggest winning margin
+
+Outright selections remain hidden from other players until the tournament begins.
+
+<!-- OUTRIGHTS SCREENSHOT: replace the line below with your Outrights <img> tag -->
+
+<img
+  src="YOUR-OUTRIGHTS-SCREENSHOT-URL"
+  alt="World Cup Predictor outright predictions page"
+  width="1100"
+/>
+
+---
+
+### Leaderboard
+
+Prediction points are calculated from completed fixtures and combined with any points earned from tournament-wide outright predictions.
+
+The leaderboard provides a live view of each player's overall tournament score and ranking.
+
+<!-- LEADERBOARD SCREENSHOT: replace the line below with your Leaderboard <img> tag -->
+
+<img
+  src="YOUR-LEADERBOARD-SCREENSHOT-URL"
+  alt="World Cup Predictor leaderboard"
+  width="1100"
+/>
+
+---
+
+### Authentication
+
+Authentication is handled using Supabase Auth.
+
+Users can:
+
+- Create an account
+- Sign in securely
+- Reset their password
+- Access authenticated prediction features
+
+<!-- AUTH SCREENSHOT: replace the line below with your Login <img> tag -->
+
+<img
+  src="YOUR-AUTH-SCREENSHOT-URL"
+  alt="World Cup Predictor login page"
+  width="1100"
+/>
+
+---
+
+## Fixture & Scoring Workflow
+
+Fixture and result data is synced from the Football-Data.org API and stored in PostgreSQL through Supabase.
+
+Predictions can be created or edited before kickoff. Once a match begins, predictions are locked to prevent late changes.
+
+After a fixture is completed:
+
+1. The latest result is synced with the database.
+2. Submitted predictions are compared with the final score.
+3. Exact-score predictions receive **3 points**.
+4. Correct-result predictions receive **1 point**.
+5. Incorrect predictions receive **0 points**.
+6. Player totals are reflected on the leaderboard.
+
+This keeps fixture data, predictions, scoring, and leaderboard standings connected through a single workflow.
+
+---
+
+## Admin Tools
+
+The application includes an internal admin interface for managing tournament data.
+
+Available actions include:
+
+- Import fixtures
+- Update match scores
+- Score submitted predictions
+
+These tools trigger the application's API routes and update the underlying tournament data.
+
+---
+
+## Project Structure
+
+```text
 app/
 ├── api/
+├── admin/
 ├── fixtures/
 ├── login/
 ├── outrights/
 ├── profile/
 ├── reset-password/
-├── signup/
+├── rules/
+└── signup/
 
 components/
-
 lib/
-
 public/
-
-styles/
 ```
 
 ---
 
-# Database
+## Database
 
-Main tables
+The main PostgreSQL tables are:
 
-- profiles
-- matches
-- predictions
-- outright_predictions
+- `profiles`
+- `matches`
+- `predictions`
+- `outright_predictions`
+
+Supabase is used for database access, authentication, and Row Level Security.
 
 ---
 
-# Installation
+## Local Development
 
-Clone the repository
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/world-cup-predictor.git
+git clone https://github.com/Stephenlyne62/world-cup-predictor.git
+cd world-cup-predictor
 ```
 
-Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-Run development server
+### 3. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+FOOTBALL_DATA_API_KEY=
+```
+
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
----
-
-# Environment Variables
-
-Create a `.env.local` file.
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=
-
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-
-FOOTBALL_DATA_API_KEY=
-```
+The application will then be available locally through the Next.js development server.
 
 ---
 
-# Future Improvements
+## Future Improvements
 
-- Admin dashboard
-- Automatic outright scoring
-- Prediction statistics
-- User profiles
-- League support
-- Multiple tournaments
-
----
-
-# Screenshots
-
-## Home
-
-The landing page provides an overview of the competition, including the current leaderboard, recent form, latest predictions, and quick access to fixtures and outright predictions.
-
-
-<img width="1232" height="602" alt="Screenshot 2026-10-20 140854" src="https://github.com/user-attachments/assets/be2203fb-e30a-4aa5-8e1b-11e30d8a6815" />
+- Scheduled fixture/result syncing and prediction scoring
+- Prediction analytics and performance statistics
+- Private leagues
+- Support for additional tournaments
+- Expanded user profiles
+- Additional tournament statistics
 
 ---
 
-## Fixtures
-
-Users can browse every World Cup fixture, submit score predictions, and edit them until kick-off.
-
-<img width="1910" height="1030" alt="Fixtures Page" src="https://github.com/user-attachments/assets/b74eb384-36fc-440a-a7cd-284118be8b07" />
-
----
-
-## Outright Predictions
-
-Players submit tournament-wide predictions before the competition begins, including the tournament winner, Golden Boot, first red card, first own goal, biggest winning team, and best-performing underdog.
-
-<img width="1891" height="920" alt="Outright Predictions" src="https://github.com/user-attachments/assets/5486e6e3-0e93-4cb5-83a7-56b4d4879ba7" />
-
----
-
-## Leaderboard
-
-The live leaderboard automatically updates as matches are scored and includes both fixture prediction points and outright prediction points.
-
-<img width="1912" height="1026" alt="Leaderboard" src="https://github.com/user-attachments/assets/e28a001d-93b4-4112-8cd6-7a1091ba1adb" />
-
----
-
-## Authentication
-
-Users can securely create an account, sign in, and reset their password using Supabase Authentication.
-
-<img width="1880" height="835" alt="Login Page" src="https://github.com/user-attachments/assets/7ebc7caf-5bf4-4c07-b0e7-79a1b7f00b1b" />
-
----
-
-# Author
+## Author
 
 **Stephen Lyne**
 
-MSc Web Development
-
+MSc Web Development  
 University of Roehampton
