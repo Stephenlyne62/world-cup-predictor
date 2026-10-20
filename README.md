@@ -95,7 +95,7 @@ Before the tournament begins, users can submit tournament-wide predictions for:
 
 Outright selections remain hidden from other players until the tournament begins.
 
-<!-- OUTRIGHTS SCREENSHOT: replace the line below with your Outrights <img> tag -->
+<img width="1903" height="1027" alt="image" src="https://github.com/user-attachments/assets/092e8668-0c91-456a-b8ce-335a1fdab38d" />
 
 <img
   src="YOUR-OUTRIGHTS-SCREENSHOT-URL"
@@ -111,7 +111,8 @@ Prediction points are calculated from completed fixtures and combined with any p
 
 The leaderboard provides a live view of each player's overall tournament score and ranking.
 
-<!-- LEADERBOARD SCREENSHOT: replace the line below with your Leaderboard <img> tag -->
+<img width="1902" height="1027" alt="image" src="https://github.com/user-attachments/assets/15ee6b48-0346-4c03-ad2e-653eb0ecc31c" />
+
 
 <img
   src="YOUR-LEADERBOARD-SCREENSHOT-URL"
@@ -132,7 +133,8 @@ Users can:
 - Reset their password
 - Access authenticated prediction features
 
-<!-- AUTH SCREENSHOT: replace the line below with your Login <img> tag -->
+<img width="1585" height="666" alt="image" src="https://github.com/user-attachments/assets/be486393-7c9d-4d2f-bd5e-3ab37cc05bb9" />
+
 
 <img
   src="YOUR-AUTH-SCREENSHOT-URL"
