@@ -196,9 +196,8 @@ FOOTBALL_DATA_API_KEY=
 
 The landing page provides an overview of the competition, including the current leaderboard, recent form, latest predictions, and quick access to fixtures and outright predictions.
 
-<img width="1917" height="922" alt="Home Page" src="https://github.com/user-attachments/assets/ac12ed97-9864-4fa2-ab03-6ddc6314f961" />
 
-<img width="1911" height="1015" alt="Latest Predictions" src="https://github.com/user-attachments/assets/37f25dbb-1b80-49ca-857e-f7ca992da863" />
+<img width="1232" height="602" alt="Screenshot 2026-10-20 140854" src="https://github.com/user-attachments/assets/be2203fb-e30a-4aa5-8e1b-11e30d8a6815" />
 
 ---
 
