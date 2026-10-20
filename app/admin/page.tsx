@@ -4,48 +4,109 @@ import { useState } from "react";
 
 export default function AdminPage() {
   const [message, setMessage] = useState("");
+  const [running, setRunning] = useState("");
 
-  async function runAction(url: string) {
+  async function runAction(url: string, action: string) {
+    setRunning(action);
     setMessage("Running...");
 
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-    setMessage(JSON.stringify(data, null, 2));
+      setMessage(JSON.stringify(data, null, 2));
+    } catch (error) {
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong."
+      );
+    } finally {
+      setRunning("");
+    }
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-8">
-      <h1 className="text-4xl font-bold mb-6">Admin</h1>
+    <main className="wc-page">
+      <section className="admin-section">
+        <div className="admin-header">
+          <p className="wc-kicker">Administration</p>
+          <h1>Admin</h1>
+          <p>
+            Manage tournament fixtures, results and prediction scoring.
+          </p>
+        </div>
 
-      <div className="space-y-4 max-w-md">
-        <button
-          onClick={() => runAction("/api/import-fixtures")}
-          className="w-full bg-blue-600 px-4 py-3 rounded"
-        >
-          Import Fixtures
-        </button>
+        <div className="admin-actions">
+          <button
+            type="button"
+            onClick={() =>
+              runAction("/api/import-fixtures", "fixtures")
+            }
+            disabled={running !== ""}
+          >
+            <span className="admin-action-number"></span>
 
-        <button
-          onClick={() => runAction("/api/update-scores")}
-          className="w-full bg-green-600 px-4 py-3 rounded"
-        >
-          Update Scores
-        </button>
+            <span className="admin-action-content">
+              <strong>
+                {running === "fixtures"
+                  ? "Importing..."
+                  : "Import fixtures"}
+              </strong>
 
-        <button
-          onClick={() => runAction("/api/score-predictions")}
-          className="w-full bg-purple-600 px-4 py-3 rounded"
-        >
-          Score Predictions
-        </button>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              runAction("/api/update-scores", "scores")
+            }
+            disabled={running !== ""}
+          >
+            <span className="admin-action-number"></span>
+
+            <span className="admin-action-content">
+              <strong>
+                {running === "scores"
+                  ? "Updating..."
+                  : "Update scores"}
+              </strong>
+
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              runAction("/api/score-predictions", "predictions")
+            }
+            disabled={running !== ""}
+          >
+            <span className="admin-action-number"></span>
+
+            <span className="admin-action-content">
+              <strong>
+                {running === "predictions"
+                  ? "Scoring..."
+                  : "Score predictions"}
+              </strong>
+
+            </span>
+          </button>
+        </div>
 
         {message && (
-          <pre className="bg-slate-900 border border-slate-700 p-4 rounded whitespace-pre-wrap">
-            {message}
-          </pre>
+          <div className="admin-output">
+            <div className="admin-output-header">
+              <span>API response</span>
+              {running && <span>Running</span>}
+            </div>
+
+            <pre>{message}</pre>
+          </div>
         )}
-      </div>
+      </section>
     </main>
   );
 }

@@ -163,222 +163,313 @@ export default function Home() {
     : undefined;
 
   return (
-    <main className="wc-page home-page">
-      <section className="wc-hero home-hero">
-        <div className="home-hero-copy">
-          <p className="wc-kicker">🏆 Indie score club</p>
-          <h1 className="wc-title">
-            World Cup <span>Predictor</span>
-          </h1>
-          <p className="wc-copy">
-            Predict every match, nail your bonus picks, and battle your mates for
-            World Cup bragging rights without turning the group chat into a spreadsheet.
+  <main className="wc-page home-page">
+    <section className="wc-hero home-hero">
+      <div className="home-hero-copy">
+        <p className="wc-kicker">World Cup 2026</p>
+
+        <h1 className="wc-title">
+          World Cup <span>Predictor</span>
+        </h1>
+
+        <p className="wc-copy">
+          Predict every match, make your tournament picks, and compete
+          against friends on a live leaderboard.
+        </p>
+
+        <div className="home-actions">
+          <Link href="/fixtures" className="wc-button">
+            Predict fixtures
+          </Link>
+
+          <Link href="/outrights" className="wc-button secondary">
+            Submit outrights
+          </Link>
+        </div>
+      </div>
+
+      <div className="home-hero-panel wc-card">
+        <div className="home-stat-card featured">
+
+
+          <p className="home-panel-label">Current leader</p>
+
+          <h2>{topTeam ? topTeam.teamName : "No leader yet"}</h2>
+
+          <p>
+            {topTeam
+              ? `${topTeam.points} points`
+              : "The current leader will appear here once scoring begins."}
+          </p>
+        </div>
+
+        <div className="home-form-grid">
+          <div className="home-stat-card compact">
+            <span className="stat-icon">↑</span>
+
+            <p className="home-panel-label">Top form · 72h</p>
+
+            <h3>
+              {recentTopTeam
+                ? recentTopTeam.teamName
+                : "No recent scorer"}
+            </h3>
+
+            <p>
+              {recentTopTeam
+                ? `${recentTopTeam.points} points from matches in the last 72 hours.`
+                : "Recent form will appear once completed matches begin scoring."}
+            </p>
+          </div>
+
+          <div className="home-stat-card compact soft">
+            <span className="stat-icon">↓</span>
+
+            <p className="home-panel-label">Lowest form · 72h</p>
+
+            <h3>
+              {recentBottomTeam
+                ? recentBottomTeam.teamName
+                : "No recent scorer"}
+            </h3>
+
+            <p>
+              {recentBottomTeam
+                ? `${recentBottomTeam.points} points across the same 72-hour period.`
+                : "Form data will appear once completed matches begin scoring."}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="home-tabs wc-card wc-card-pad">
+      <div className="home-tabs-head">
+        <div>
+          <p className="wc-kicker">Standings</p>
+          <h2>Tournament overview</h2>
+        </div>
+
+        <div
+          className="tab-switcher"
+          aria-label="Home table selector"
+        >
+          <button
+            type="button"
+            onClick={() => setTab("leaderboard")}
+            className={tab === "leaderboard" ? "active" : ""}
+          >
+            Leaderboard
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTab("outrights")}
+            className={tab === "outrights" ? "active" : ""}
+          >
+            Outrights
+          </button>
+        </div>
+      </div>
+
+      {tab === "leaderboard" && (
+        <div className="home-list">
+          {leaderboard.length === 0 ? (
+            <div className="empty-state">
+              <p>
+                No scores yet. The leaderboard will update once
+                tournament scoring begins.
+              </p>
+            </div>
+          ) : (
+            leaderboard.map((row, index) => (
+              <div
+                key={row.userId}
+                className="home-rank-row"
+              >
+                <div className="rank-badge">
+                  {index + 1}
+                </div>
+
+                <div>
+                  <strong>{row.teamName}</strong>
+                  <small>Rank {index + 1}</small>
+                </div>
+
+                <span className="points-badge">
+                  {row.points} pts
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+
+      {tab === "outrights" && (
+        <div className="home-table-wrap">
+          <p className="home-table-note">
+            Team names are visible now. Bonus picks unlock once
+            the tournament starts.
           </p>
 
-          <div className="home-actions">
-            <Link href="/fixtures" className="wc-button">
-              Predict fixtures
-            </Link>
-            <Link href="/outrights" className="wc-button secondary">
-              Submit outrights
-            </Link>
-          </div>
-        </div>
+          <table className="home-outrights-table">
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th>Winner</th>
+                <th>Golden Boot</th>
+                <th>Red Card</th>
+                <th>Own Goal</th>
+                <th>100/1+ Team</th>
+                <th>Biggest Win</th>
+              </tr>
+            </thead>
 
-        <div className="home-hero-panel wc-card">
-          <div className="home-stat-card featured">
-            <span className="wc-pill">Top of the table</span>
-            <div className="home-trophy">🏆</div>
-            <p className="home-panel-label">Current pace-setter</p>
-            <h2>{topTeam ? topTeam.teamName : "No leader yet"}</h2>
-            <p>
-              {topTeam
-                ? `${topTeam.points} points on the board already.`
-                : "Scores will land here once predictions start paying out."}
-            </p>
-          </div>
-
-          <div className="home-form-grid">
-            <div className="home-stat-card compact">
-              <span className="stat-icon">🔥</span>
-              <p className="home-panel-label">Top player · 72h</p>
-              <h3>{recentTopTeam ? recentTopTeam.teamName : "No recent scorer"}</h3>
-              <p>
-                {recentTopTeam
-                  ? `${recentTopTeam.points} pts from matches kicked off in the last 72 hours.`
-                  : "Recent form appears here after kicked-off matches score points."}
-              </p>
-            </div>
-
-            <div className="home-stat-card compact soft">
-              <span className="stat-icon">🫠</span>
-              <p className="home-panel-label">Bottom player · 72h</p>
-              <h3>{recentBottomTeam ? recentBottomTeam.teamName : "No recent scorer"}</h3>
-              <p>
-                {recentBottomTeam
-                  ? `${recentBottomTeam.points} pts across the same 72-hour window.`
-                  : "No one has taken a recent form wobble yet."}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="home-tabs wc-card wc-card-pad">
-        <div className="home-tabs-head">
-          <div>
-            <p className="wc-kicker">Clubhouse</p>
-            <h2>Scores, picks, and receipts</h2>
-          </div>
-
-          <div className="tab-switcher" aria-label="Home table selector">
-            <button
-              type="button"
-              onClick={() => setTab("leaderboard")}
-              className={tab === "leaderboard" ? "active" : ""}
-            >
-              Leaderboard
-            </button>
-            <button
-              type="button"
-              onClick={() => setTab("outrights")}
-              className={tab === "outrights" ? "active" : ""}
-            >
-              Outrights
-            </button>
-          </div>
-        </div>
-
-        {tab === "leaderboard" && (
-          <div className="home-list">
-            {leaderboard.length === 0 ? (
-              <div className="empty-state">
-                <span>🪩</span>
-                <p>No scores yet. The table is waiting for kickoff chaos.</p>
-              </div>
-            ) : (
-              leaderboard.map((row, index) => (
-                <div key={row.userId} className="home-rank-row">
-                  <div className="rank-badge">
-                    {index === 0
-                      ? "🥇"
-                      : index === 1
-                      ? "🥈"
-                      : index === 2
-                      ? "🥉"
-                      : index + 1}
-                  </div>
-                  <div>
-                    <strong>{row.teamName}</strong>
-                    <small>Rank {index + 1}</small>
-                  </div>
-                  <span className="points-badge">{row.points} pts</span>
-                </div>
-              ))
-            )}
-          </div>
-        )}
-
-        {tab === "outrights" && (
-          <div className="home-table-wrap">
-            <p className="home-table-note">
-              Team names are visible now. Bonus picks unlock once the tournament starts.
-            </p>
-            <table className="home-outrights-table">
-              <thead>
+            <tbody>
+              {outrights.length === 0 ? (
                 <tr>
-                  <th>Team</th>
-                  <th>Winner</th>
-                  <th>Golden Boot</th>
-                  <th>Red Card</th>
-                  <th>Own Goal</th>
-                  <th>100/1+ Team</th>
-                  <th>Biggest Win</th>
+                  <td colSpan={7}>
+                    No outright picks submitted yet.
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {outrights.length === 0 ? (
-                  <tr>
-                    <td colSpan={7}>No outright picks submitted yet.</td>
-                  </tr>
-                ) : (
-                  outrights.map((row) => (
-                    <tr key={row.user_id}>
-                      <td><strong>{teamName(row.user_id)}</strong></td>
-                      <td>{tournamentStarted ? row.tournament_winner : "🔒"}</td>
-                      <td>{tournamentStarted ? row.golden_boot : "🔒"}</td>
-                      <td>{tournamentStarted ? row.red_card_player : "🔒"}</td>
-                      <td>{tournamentStarted ? row.own_goal_player : "🔒"}</td>
-                      <td>{tournamentStarted ? row.underdog_team : "🔒"}</td>
-                      <td>{tournamentStarted ? row.biggest_win_team : "🔒"}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
+              ) : (
+                outrights.map((row) => (
+                  <tr key={row.user_id}>
+                    <td>
+                      <strong>
+                        {teamName(row.user_id)}
+                      </strong>
+                    </td>
 
-      <section className="wc-card wc-card-pad home-predictions">
+                    <td>
+                      {tournamentStarted
+                        ? row.tournament_winner
+                        : "Locked"}
+                    </td>
+
+                    <td>
+                      {tournamentStarted
+                        ? row.golden_boot
+                        : "Locked"}
+                    </td>
+
+                    <td>
+                      {tournamentStarted
+                        ? row.red_card_player
+                        : "Locked"}
+                    </td>
+
+                    <td>
+                      {tournamentStarted
+                        ? row.own_goal_player
+                        : "Locked"}
+                    </td>
+
+                    <td>
+                      {tournamentStarted
+                        ? row.underdog_team
+                        : "Locked"}
+                    </td>
+
+                    <td>
+                      {tournamentStarted
+                        ? row.biggest_win_team
+                        : "Locked"}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+
+    <section className="wc-card wc-card-pad home-predictions">
       <div className="home-section-head">
         <div>
-          <p className="wc-kicker">Score slips</p>
+          <p className="wc-kicker">Predictions</p>
           <h2>Latest predictions</h2>
         </div>
-        <span className="wc-pill wc-pill-locked">After kickoff only</span>
+
+        <span className="wc-pill wc-pill-locked">
+          Visible after kickoff
+        </span>
       </div>
 
       <p className="home-muted">
-        Predictions only appear once a match has kicked off, so no one can peek at
-        the homework early.
+        Player predictions remain hidden until each match kicks
+        off.
       </p>
 
       <div className="prediction-accordion-list">
         {Object.keys(predictionsByMatch).length === 0 ? (
           <div className="empty-state wide">
-            <span>🔮</span>
             <p>No predictions are visible yet.</p>
           </div>
         ) : (
-          Object.entries(predictionsByMatch).map(([matchName, group]) => (
-            <details key={matchName} className="prediction-fixture-card">
-              <summary className="prediction-fixture-summary">
-                <div>
-                  <h3>{matchName}</h3>
-                  <p>{new Date(group.kickoff_time).toLocaleString()}</p>
-                </div>
+          Object.entries(predictionsByMatch).map(
+            ([matchName, group]) => (
+              <details
+                key={matchName}
+                className="prediction-fixture-card"
+              >
+                <summary className="prediction-fixture-summary">
+                  <div>
+                    <h3>{matchName}</h3>
 
-                <span className="wc-pill">
-                  {group.predictions.length} picks
-                </span>
-              </summary>
-
-              <div className="prediction-fixture-body">
-                {group.predictions.map((prediction) => (
-                  <div key={prediction.id} className="prediction-player-card">
-                    <div>
-                      <strong>{teamName(prediction.user_id)}</strong>
-                      <p>
-                        {prediction.matches.home_team}{" "}
-                        <span>{prediction.predicted_home_score}</span>
-                        {" - "}
-                        <span>{prediction.predicted_away_score}</span>{" "}
-                        {prediction.matches.away_team}
-                      </p>
-                    </div>
-
-                    <span className="prediction-points-pill">
-                      {prediction.points ?? 0} pts
-                    </span>
+                    <p>
+                      {new Date(
+                        group.kickoff_time
+                      ).toLocaleString()}
+                    </p>
                   </div>
-                ))}
-              </div>
-            </details>
-          ))
+
+                  <span className="wc-pill">
+                    {group.predictions.length} picks
+                  </span>
+                </summary>
+
+                <div className="prediction-fixture-body">
+                  {group.predictions.map((prediction) => (
+                    <div
+                      key={prediction.id}
+                      className="prediction-player-card"
+                    >
+                      <div>
+                        <strong>
+                          {teamName(prediction.user_id)}
+                        </strong>
+
+                        <p>
+                          {prediction.matches.home_team}{" "}
+                          <span>
+                            {
+                              prediction.predicted_home_score
+                            }
+                          </span>
+                          {" - "}
+                          <span>
+                            {
+                              prediction.predicted_away_score
+                            }
+                          </span>{" "}
+                          {prediction.matches.away_team}
+                        </p>
+                      </div>
+
+                      <span className="prediction-points-pill">
+                        {prediction.points ?? 0} pts
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )
+          )
         )}
       </div>
-      </section>
-    </main>
-  );
+    </section>
+  </main>
+);
 }

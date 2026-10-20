@@ -40,36 +40,42 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
   }, []);
 
   async function savePrediction(matchId: number) {
-    const { data: userData } = await supabase.auth.getUser();
+  const { data: userData } = await supabase.auth.getUser();
 
-    if (!userData.user) {
-      alert("Please log in first.");
-      return;
-    }
-
-    const prediction = scores[matchId];
-
-    if (!prediction?.home || !prediction?.away) {
-      alert("Enter both scores.");
-      return;
-    }
-
-    const { error } = await supabase.from("predictions").upsert(
-      {
-        user_id: userData.user.id,
-        match_id: matchId,
-        predicted_home_score: Number(prediction.home),
-        predicted_away_score: Number(prediction.away),
-      },
-      { onConflict: "user_id,match_id" }
-    );
-
-    if (error) {
-      alert(error.message);
-    } else {
-      alert("Prediction saved.");
-    }
+  if (!userData.user) {
+    alert("Please log in first.");
+    return;
   }
+
+  const prediction = scores[matchId];
+
+  if (!prediction?.home || !prediction?.away) {
+    alert("Enter both scores.");
+    return;
+  }
+
+  const response = await fetch("/api/save-prediction", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: userData.user.id,
+      match_id: matchId,
+      home_score: Number(prediction.home),
+      away_score: Number(prediction.away),
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    alert(data.error || "Failed to save prediction.");
+    return;
+  }
+
+  alert("Prediction saved.");
+}
 
   return (
     <main className="wc-page">
