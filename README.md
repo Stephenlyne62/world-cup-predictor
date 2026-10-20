@@ -133,7 +133,8 @@ Users can:
 - Reset their password
 - Access authenticated prediction features
 
-<img width="1585" height="666" alt="image" src="https://github.com/user-attachments/assets/be486393-7c9d-4d2f-bd5e-3ab37cc05bb9" />
+<img width="1230" height="517" alt="image" src="https://github.com/user-attachments/assets/178b4df9-c72f-4bfd-ba14-f84612621882" />
+
 
 
 <img
