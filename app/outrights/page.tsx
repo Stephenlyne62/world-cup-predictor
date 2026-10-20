@@ -177,17 +177,17 @@ export default function OutrightsPage() {
       <section>
         <div className="wc-hero">
           <p className="wc-kicker">
-            bonus chaos
+            Tournament predictions
           </p>
           <h1 className="wc-title">Outright Predictions<span>.</span></h1>
           <p className="wc-copy">
-            Pick your tournament bonuses before the first match kicks off.
+            Make your tournament-wide predictions before the first match begins.
           </p>
         </div>
 
         {outrightsLocked && (
           <div className="lock-banner">
-            Outrights are locked because the tournament has started.
+            Outright predictions are locked because the tournament has started.
           </div>
         )}
 

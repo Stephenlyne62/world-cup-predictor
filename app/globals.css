@@ -2813,3 +2813,19 @@ nav a:focus-visible {
 .login-card .forgot-password:hover {
   color: var(--gold);
 }
+/* =====================
+   TOP FORM — SOFTER GREEN
+===================== */
+
+.home-form-grid .home-stat-card:first-child {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(22, 35, 28, 0.78),
+      rgba(15, 24, 20, 0.9)
+    );
+
+  border-color: rgba(216, 184, 90, 0.09);
+
+  box-shadow: none;
+}

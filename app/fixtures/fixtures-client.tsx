@@ -81,13 +81,13 @@ export default function FixturesClient({ matches }: { matches: any[] }) {
     <main className="wc-page">
       <section>
         <div className="wc-hero">
-          <p className="wc-kicker">score slips</p>
+          <p className="wc-kicker">Match Predictions</p>
           <h1 className="wc-title">
             Fixtures<span>.</span>
           </h1>
           <p className="wc-copy">
-            Tap in your predictions before kickoff. Clean cards, quick score
-            boxes, zero spreadsheet energy.
+            Submit your score predictions before kickoff. Predictions lock
+            automatically when each match begins.
           </p>
         </div>
 

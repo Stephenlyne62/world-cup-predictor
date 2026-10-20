@@ -59,20 +59,19 @@ export default function LoginPage() {
     <main className="wc-page auth-page">
       <section className="auth-layout">
         <div className="wc-hero auth-hero">
-          <p className="wc-kicker">clubhouse entry</p>
+          <p className="wc-kicker">Your account</p>
           <h1 className="wc-title">
             Login<span>.</span>
           </h1>
 
           <p className="wc-copy">
-            Sign in, name your chaos ball, and keep your tournament takes
-            safely tucked away.
+            Sign in to manage your predictions and follow your tournament standings.
           </p>
         </div>
 
         <div className="wc-card wc-card-pad auth-card">
           <div className="auth-note">
-            Your picks, your table, your tiny bit of football glory.
+            Sign in to your World Cup Predictor account.
           </div>
 
           <div className="wc-form">
