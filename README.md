@@ -54,7 +54,8 @@ Built with **Next.js**, **TypeScript**, **Supabase/PostgreSQL**, and deployed on
 
 The home page provides an overview of the competition, including the current leader, recent form, tournament standings, outright picks, and the latest available predictions.
 
-<img width="1912" height="787" alt="image" src="https://github.com/user-attachments/assets/db3b9a67-c6a5-474b-b7a0-d152322a27e3" />
+<img width="1903" height="842" alt="image" src="https://github.com/user-attachments/assets/74039ca6-70d6-4c06-acaf-2d4f6624742c" />
+
 
 
 <img
@@ -71,7 +72,8 @@ Users can browse World Cup fixtures, enter score predictions, and update their s
 
 Predictions are locked automatically when each match begins, preventing changes after the deadline.
 
-<img width="1897" height="868" alt="image" src="https://github.com/user-attachments/assets/4ae5219a-6896-41a3-93b0-9e65324d41e6" />
+<img width="1882" height="1020" alt="image" src="https://github.com/user-attachments/assets/5b3b4c69-66c4-43b3-94d3-0cc11672a46f" />
+
 
 
 <img
@@ -95,7 +97,8 @@ Before the tournament begins, users can submit tournament-wide predictions for:
 
 Outright selections remain hidden from other players until the tournament begins.
 
-<img width="1903" height="1027" alt="image" src="https://github.com/user-attachments/assets/092e8668-0c91-456a-b8ce-335a1fdab38d" />
+<img width="1900" height="1030" alt="image" src="https://github.com/user-attachments/assets/02357e6c-9b34-475d-8173-1135b89e9c09" />
+
 
 <img
   src="YOUR-OUTRIGHTS-SCREENSHOT-URL"
@@ -111,7 +114,7 @@ Prediction points are calculated from completed fixtures and combined with any p
 
 The leaderboard provides a live view of each player's overall tournament score and ranking.
 
-<img width="1902" height="1027" alt="image" src="https://github.com/user-attachments/assets/15ee6b48-0346-4c03-ad2e-653eb0ecc31c" />
+<img width="1893" height="1026" alt="image" src="https://github.com/user-attachments/assets/b30928dd-7b9f-4c30-8450-ee8578eba646" />
 
 
 <img
@@ -133,7 +136,8 @@ Users can:
 - Reset their password
 - Access authenticated prediction features
 
-<img width="1230" height="517" alt="image" src="https://github.com/user-attachments/assets/178b4df9-c72f-4bfd-ba14-f84612621882" />
+<img width="1603" height="626" alt="image" src="https://github.com/user-attachments/assets/4f704de2-0160-46db-a9c7-4e76ec48a90f" />
+
 
 
 
